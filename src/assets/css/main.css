@@ -1,0 +1,33 @@
+.jumbotron {
+	text-align: center;
+}
+
+.title,
+.sub-title,
+.sub-title2 {
+	text-align: center;
+}
+
+.title,
+.sub-title {
+	font-style: italic;
+}
+
+.title {
+	font-size: 36;
+	font-weight: bold;
+}
+
+.sub-title2 {
+	font-size: 18;
+}
+
+.wizard-hidden {
+	display: none;
+}
+
+.wizard-visible {
+	display: block;
+}
+
+

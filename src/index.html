@@ -1,0 +1,209 @@
+<html>
+<head>
+    <title>Bootstrap Layouts</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
+
+
+</head>
+<body>
+
+
+	<div class="navbar">
+		<div class="bg-primary">
+			<div class="title bg-primary">ICONS</div>
+			<div class="sub-title bg-primary">Super Powered Roleplaying</div>
+			<div class="sub-title2 bg-primary">Assembeled Edition Character Creator</div>
+		</div>
+		<button id="wizard0" disabled class="btn">Welcome</button>
+		<button id="wizard1" disabled class="btn">Origin</button>
+		<button id="wizard2" disabled class="btn">Phase 2</button>
+		<button id="wizard3" disabled class="btn">Phase 3</button>
+	</div>
+
+
+	<div class="container">
+		<div id="panel1" class="wizard-visible">
+		</div>
+
+		<div id="panel1" class="wizard-visible">
+			<div class="row">
+				<script id="origins-template" type="x-handlebars-template">​
+					{{#each this}}
+						<div data-index="{{id}}" class="col-12">
+							<div id="panel{{id}}" class="panel panel-primary">
+								<div class="panel-heading">
+								{{name}} ( roll: {{roll}} )
+								</div>
+								<div class="panel-body">
+									<span class="table-description">{{description}}</span>
+								</div>
+							</div>
+						</div>
+					{{/each}}
+				</script> 
+			</div>
+		</div>
+
+	</div>	
+
+<!-- 	<div class="container">
+
+		<div class="row">
+			<div class="col-md-3 col-sm-6 col-xs-12">
+				<div id="panel1" class="panel panel-primary">
+					<div class="panel-heading">#panel1</div>
+					<div class="panel-body">content</div>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6 col-xs-12">
+				<div id="panel2" class="panel panel-primary">
+					<div class="panel-heading">#panel2</div>
+					<div class="panel-body">content</div>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6 col-xs-12">
+				<div id="panel3" class="panel panel-primary">
+					<div class="panel-heading">#panel3</div>
+					<div class="panel-body">content</div>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6 col-xs-12">
+				<div id="panel4" class="panel panel-primary">
+					<div class="panel-heading">#panel4</div>
+					<div class="panel-body">content</div>
+				</div>
+			</div>
+		</div>
+	</div>
+ -->
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="assets/js/jquery-2.1.4.js"></script>
+<script src="assets/js/jspdf.source.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery.bootstrap.wizard.min.js"></script>
+
+<script src="assets/js/handlebars.min.js"></script>
+
+<!-- <script src="assets/js/image.js"></script> -->
+<script src="assets/js/printer.js"></script>
+<script src="assets/js/wizard.js"></script>
+
+<script>
+	$(function() {
+
+	// $('#rootwizard').bootstrapWizard(
+	// 	{
+	// 		'nextSelector': '.button-next', 
+	// 		'previousSelector': '.button-previous', 
+	// 		'firstSelector': '.button-first', 
+	// 		'lastSelector': '.button-last',
+	// 		onNext: function(tab, navigation, index) {
+	// 			alert( 'calling toggle')
+	// 			var cell = $('tab'+index);
+	// 			alert( "cell: " + cell );
+	// 			cell.attr('class', 'bg-danger');
+
+
+	// 			// if(index==2) {
+	// 			// 	// Make sure we entered the name
+	// 			// 	if(!$('#name').val()) {
+	// 			// 		alert('You must enter your name');
+	// 			// 		$('#name').focus();
+	// 			// 		return false;
+	// 			// 	}
+	// 			// }
+				
+	// 			// // Set the name for the next tab
+	// 			// $('#tab3').html('Hello, ' + $('#name').val());
+				
+	// 		}, 
+	// 		onTabShow: function(tab, navigation, index) {
+	// 			var $total = navigation.find('li').length;
+	// 			var $current = index+1;
+	// 			var $percent = ($current/$total) * 100;
+	// 			$('#rootwizard').find('.bar').css({width:$percent+'%'});
+	// 		}
+	// 	});
+
+		var wizardIndex =0;
+
+		var content = "New Content";
+
+
+		// $('#panel1' )//.hide(300).show(500)
+		// 	.slideToggle().delay(500).slideToggle().fadeToggle().fadeToggle()
+		// 	.css({
+		// 		color: 'red',
+		// 		'font-weight': 'bold'
+		// 	})
+
+		// $('#panel2' ).fadeToggle().css({
+		// 		opacity: 0.5
+		// 	}).fadeToggle();
+
+		// $('.panel-button').on('click', function(){
+		// 	var panelId = $(this).attr('data-panel-id')
+		// 	$('#'+panelId).fadeToggle();
+		// 	$('#'+panelId+' .panel-body').html(content);
+		// })
+
+		// $('.printButton').on('click', function(){
+		// 	var X = $( '.container' )[0];
+		// 	printThing( X );
+	 // 	})
+
+		// $('img').hide();
+
+		$('.printPageButton').on('click', printPage);
+
+		$('.sub-title2')
+			.fadeToggle(500).fadeToggle(700)
+			.fadeToggle(500).fadeToggle(700)
+			.fadeToggle(500).fadeToggle(700);
+
+		loadOrigin();
+
+		//disabled or enable items
+		// $('#fieldId').attr('disabled', 'disabled'); //Disable
+		// $('#fieldId').removeAttr('disabled'); //Enable
+
+	});
+</script>
+
+<script type="application/json" id="origins">
+[
+{ "roll": "2,3,4",
+"name": "Trained",
+"description": "The hero is a highly skilled human; any \"powers\" actually come from superior training or specialized equipment. The character gains two additional specialties, and can choose to trade a power for two more specialties."},
+
+{ "roll": "5,6",
+"name": "Transformed",
+"description": "The hero was a normal human but became superhuman through some outside agency, often an accident or experiment. One of the character’s abilities (attribute or power, your choice) is increased by +2 to a maximum of 10."},
+
+{ "roll": "7",
+"name": "Birthright",
+"description": "The hero was born with or destined to develop superhuman powers. The character gains your choice of one additional power—which should be innate, and not a device—or +2 to a rolled power level to a maximum of 10."},
+
+{ "roll": "8,9",
+"name": "Gimmick",
+"description": "The character’s powers all come from devices of some kind. One of the character’s mental attributes (your choice) is increased by +2 to a maximum of 10."},
+
+{ "roll": "10",
+"name": "Artificial",
+"description": "The character is a robot or some other kind of construct, such as a golem. The character’s Strength is increased by +2 and has the Life Support power in addition to any rolled powers; roll Life Support level normally, or trade a rolled power to increase it to 10."},
+
+{ "roll": "11,12",
+"name": "Unearthly",
+"description": "The character is an alien, elemental, angel, devil, or even deity—a being from another world or dimension. Increase two of the character’s abilities (attributes or powers, your choice) by +2. Alternately, roll twice on this table, ignoring duplicates and results of 11-12. The character gets the effects of both origins.  Apply the modifiers of the rolled origins rather than the Unearthly modifiers."}
+]
+</script>
+
+</body>
+</html>
